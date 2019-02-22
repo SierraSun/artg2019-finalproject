@@ -4,10 +4,10 @@ function LineChart(){
 
 	let maxY;
 	const bisect = d3.bisector(d => d.key).right; //this will give us a function
-	let cb;
+	let yearChangeCallback;
 
-	function exportFunction(data, rootDOM){
-
+	function exportFunction(data, rootDOM, key){
+    console.log(data)
 		const W = rootDOM.clientWidth;
 		const H = rootDOM.clientHeight;
 		const margin = {t:32, r:32, b:64, l:64};
@@ -35,8 +35,10 @@ function LineChart(){
 			.tickSize(-innerWidth)
 			.ticks(3)
 
+		//Build DOM structure
 		const svg = d3.select(rootDOM)
 			.classed('line-chart',true)
+			.style('position','relative') //necessary to position <h3> correctly
 			.selectAll('svg')
 			.data([1])
 		const svgEnter = svg.enter()
@@ -44,6 +46,17 @@ function LineChart(){
 		svg.merge(svgEnter)
 			.attr('width', W)
 			.attr('height', H);
+
+		const title = d3.select(rootDOM)
+			.selectAll('h3')
+			.data([1]);
+		const titleEnter = title.enter()
+			.append('h3')
+			.style('position','absolute')
+			.style('left',`${margin.l}px`)
+			.style('top',`0px`)
+		title.merge(titleEnter)
+			.html(key);
 
 		//Append rest of DOM structure in the enter selection
 		const plotEnter = svgEnter.append('g')
@@ -103,7 +116,7 @@ function LineChart(){
 				const mouse = d3.mouse(this);
 				const mouseX = mouse[0];
 				const year = scaleX.invert(mouseX);
-				
+
 				const idx = bisect(data, year);
 				const datum = data[idx];
 
@@ -112,7 +125,8 @@ function LineChart(){
 					.select('text')
 					.text(datum.value);
 
-				cb(datum.key);
+					yearChangeCallback(datum.key)
+
 			})
 			.on('mouseleave', function(d){
 				plot.select('.tool-tip')
@@ -126,8 +140,8 @@ function LineChart(){
 		return this;
 	}
 
-	exportFunction.on = function(event, callback){
-		cb = callback;
+	exportFunction.onChangeYear = function(callback){
+		yearChangeCallback = callback  //whatever function you passed in: enter... console.log(...)
 		return this;
 	}
 

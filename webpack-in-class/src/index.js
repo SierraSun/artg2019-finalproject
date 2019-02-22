@@ -14,20 +14,28 @@ import {
 //View modules
 import Composition from './viewModules/Composition';
 import LineChart from './viewModules/LineChart';
+import Cartogram from './viewModules/Cartogram';
 
 //Create global dispatch object
-const globalDispatch = dispatch("change:country");
+const globalDispatch = dispatch("change:country",'change:year');
 
 //Build UI for countryTitle component
 const title = select('.country-view')
-	.insert('h1', '.composition-container')
+	.insert('h1', '.cartogram-container')
 	.html('World');
 
 globalDispatch.on('change:country', (code, displayName, migrationData) => {
 	title.html(displayName);
 	renderLineCharts(groupBySubregionByYear(code, migrationData));
-	renderComposition(migrationData.filter(d => d.origin_code === code));
+	renderComposition(migrationData.filter(d => d.origin_code === code),1995);
+	renderCartogram(migrationData.filter(d => d.origin_code === code));
 });
+globalDispatch.on('change:year', year=>{
+	//re-render the composition and the cartogram modules
+  console.log('globaldispatch',+year)
+})
+// globalDispatch.call('change:year',null,year)
+
 
 Promise.all([
 		migrationDataPromise,
@@ -50,14 +58,16 @@ Promise.all([
 
 			if(origin_metadata){
 				d.origin_subregion = origin_metadata.subregion;
+				d.origin_lngLat = origin_metadata.lngLat;
 			}
 			if(dest_metadata){
 				d.dest_subregion = dest_metadata.subregion;
+				d.dest_lngLat = dest_metadata.lngLat;
 			}
 
 			return d;
 		});
-	
+
 		//Render the view modules
 		globalDispatch.call('change:country',null,"840","World",migrationAugmented);
 
@@ -79,19 +89,21 @@ Promise.all([
 			const idx = this.selectedIndex;
 			const display = this.options[idx].innerHTML;
 
-			globalDispatch.call('change:country', null, code, display, migrationAugmented);
+			globalDispatch.call('change:country',null,code,display,migrationAugmented);
 		});
 
 });
 
 function renderLineCharts(data){
-
 	//Find max value in data
 	const maxValue = max( data.map(subregion => max(subregion.values, d => d.value)) ) //[]x18
 
-	const lineChart = LineChart()
+	const lineChart = LineChart()//inner function, export function = "export function"
 		.maxY(maxValue)
-		.on('year:change', year => console.log(year));
+		.onChangeYear(
+			// 'year:change', //string represent event type
+		year => globalDispatch.call('change:year',null,year)//call back function
+	);
 
 	const charts = select('.chart-container')
 		.selectAll('.chart')
@@ -104,17 +116,27 @@ function renderLineCharts(data){
 	charts.merge(chartsEnter)
 		.each(function(d){
 			lineChart(
-				d.values, 
-				this
+				d.values,
+				this,
+				d.key
 			);
 		});
 }
 
 function renderComposition(data){
 
+	const composition = Composition()
+	// .year(year);
+
 	select('.composition-container')
 		.each(function(){
-			Composition(this, data)
+			composition(this, data);
 		});
+}
 
+function renderCartogram(data){
+	select('.cartogram-container')
+		.each(function(){
+			Cartogram(this, data);
+		});
 }
