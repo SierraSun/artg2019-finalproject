@@ -89,8 +89,8 @@ export default function Cartogram(rootDOM, data){
 		.text(d => d.dest_name);
 
 
-  const force_x = forceX().x(d=>d.y);//pull the x position that i defined
-	const force_y = forceY().y(d=>d.x);
+  const force_x = forceX().x(d=>d.x);//pull the x position that i defined
+	const force_y = forceY().y(d=>d.y);
 	const force_collide=forceCollide(d=>scaleSize(d.value));
 
 	//combine the forces into a forceSimulation
