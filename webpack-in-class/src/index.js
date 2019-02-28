@@ -1,6 +1,6 @@
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {select, max, dispatch} from 'd3';
+import {select, max, dispatch,nest} from 'd3';
 
 import {
 	countryCodePromise,
@@ -110,7 +110,19 @@ function renderComposition(data,year){
 
 function renderCartogram(data,year){
 
+	//Data restructuring
+	let dataMap = nest()
+		.key(d => d.year)
+		.entries(data)
+		.map(d => [+d.key, d.values]);
+	dataMap = new Map(dataMap);
+	let dataByYear = dataMap.get(year);
+
+	const maxValue = max(dataByYear, d => d.value);
+
 	const cartogram = Cartogram()
+	    .maxSize(maxValue)
+
 	if(year){
 		 cartogram.year(year);
 	}

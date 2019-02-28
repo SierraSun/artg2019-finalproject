@@ -10,6 +10,7 @@ forceCollide
 
 export default function Cartogram(){
 let year=2017;
+let maxSize;
 
 function exportFunction(rootDOM,data){
 
@@ -17,29 +18,26 @@ function exportFunction(rootDOM,data){
 		const W = rootDOM.clientWidth;
 		const H = 600;
 		const margin = {t:64, r:64, b:64, l:64};
-		const w = W - margin.l - margin.r;
-		const h = H - margin.t - margin.b;
+		let w=W - margin.l - margin.r;
+		let h = H - margin.t - margin.b;
 		// const YEAR = 2017;
 		const scaleSize = scaleSqrt().range([3,100]);
 
-
-
-		//Data restructuring
-		let dataMap = nest()
-			.key(d => d.year)
-			.entries(data)
-			.map(d => [+d.key, d.values]);
-		dataMap = new Map(dataMap);
-		let dataByYear = dataMap.get(year);
 		//Discover max value to set the size of circles
-		const maxValue = max(dataByYear, d => d.value);
-		scaleSize.domain([0, maxValue]);
+	  scaleSize.domain([0, maxSize]);
 
 		//Layout function:
 		//Use geographic representation for cartogram
 		const projection = geoMercator()
 			.translate([w/2, h/2]);
-
+			
+			//Data restructuring
+			let dataMap = nest()
+				.key(d => d.year)
+				.entries(data)
+				.map(d => [+d.key, d.values]);
+			dataMap = new Map(dataMap);
+			let dataByYear = dataMap.get(year);
 		//Transform data again, this time giving each data point an xy coordinate
 		dataByYear = dataByYear.map(d => {
 			const xy = d.dest_lngLat?projection(d.dest_lngLat):[w/2,h/2];//what's the meaning here
@@ -93,7 +91,7 @@ function exportFunction(rootDOM,data){
 			.filter(d => scaleSize(d.value)>30)
 			.text(d => d.dest_name);
 
-
+    //configure the forces
 	  const force_x = forceX().x(d=>w/2);//pull the x position that i defined
 		const force_y = forceY().y(d=>h/2);
 		const force_collide=forceCollide(d=>scaleSize(d.value));
@@ -115,6 +113,11 @@ function exportFunction(rootDOM,data){
 	exportFunction.year=function(_){
 		year=_;
 		return this;
-	}
+	};
+	exportFunction.maxSize = function(_){
+		maxSize = _;
+		return this;
+	};
+
 	return exportFunction;
 }
