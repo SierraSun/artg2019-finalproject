@@ -108,10 +108,15 @@ function renderComposition(data,year){
 		});
 }
 
-function renderCartogram(data){
+function renderCartogram(data,year){
+
+	const cartogram = Cartogram()
+	if(year){
+		 cartogram.year(year);
+	}
 	select('.cartogram-container')
 		.each(function(){
-			Cartogram(this, data);
+			cartogram(this, data);
 		});
 }
 
@@ -142,7 +147,7 @@ function renderMenu(countryCode){
 			const idx = this.selectedIndex;
 			const display = this.options[idx].innerHTML;
 
-			globalDispatch.call('change:country',null,code,display,migrationAugmented);
+			globalDispatch.call('change:country',null,code,display);
 		});
 
 };
