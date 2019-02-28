@@ -26,12 +26,14 @@ function exportFunction(rootDOM, data){
 		.key(d => d.dest_subregion)
 		.entries(data)
 		.map(d => [+d.key, d.values]);
+  console.log(dataByYear);
 	dataByYear = new Map(dataByYear);
 	//-- Convert to a treemap structure
 	let treemapData = {
 		key:'root',
 		values:dataByYear.get(year)
 	};
+	console.log(treemapData)
 	//-- Convert to hierarchy structure
 	treemapData = hierarchy(treemapData, d => d.values);
 	treemapData.sum(d => d.value);

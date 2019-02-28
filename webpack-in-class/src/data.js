@@ -21,7 +21,42 @@ const metadataPromise = csv('./data/country-metadata.csv', parseMetadata)
 		return metadataMap;
 	});
 
+const migrationDataCombined = Promise.all([
+      migrationDataPromise,
+			countryCodePromise,
+			metadataPromise
+		])
+		.then(([migration, countryCode, metadataMap]) => {
+
+			const migrationAugmented = migration.map(d => {
+
+				const origin_code = countryCode.get(d.origin_name);
+				const dest_code = countryCode.get(d.dest_name);
+
+				d.origin_code = origin_code;
+				d.dest_code = dest_code;
+
+				//Take the 3-digit code, get metadata record
+				const origin_metadata = metadataMap.get(origin_code);
+				const dest_metadata = metadataMap.get(dest_code);
+
+				if(origin_metadata){
+					d.origin_subregion = origin_metadata.subregion;
+					d.origin_lngLat = origin_metadata.lngLat;
+				}
+				if(dest_metadata){
+					d.dest_subregion = dest_metadata.subregion;
+					d.dest_lngLat = dest_metadata.lngLat;
+				}
+
+				return d;
+			});
+       return migrationAugmented;
+		});
+
+
 export {
+	migrationDataCombined,
 	migrationDataPromise,
 	countryCodePromise,
 	metadataPromise

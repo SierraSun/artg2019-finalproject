@@ -37,7 +37,7 @@ export default function Cartogram(rootDOM, data){
 
 	//Transform data again, this time giving each data point an xy coordinate
 	dataByYear = dataByYear.map(d => {
-		const xy = d.dest_lngLat?projection(d.dest_lngLat):[w/2,h/2];
+		const xy = d.dest_lngLat?projection(d.dest_lngLat):[w/2,h/2];//what's the meaning here
 		d.x = xy[0];
 		d.y = xy[1];
 		return d;
@@ -89,8 +89,8 @@ export default function Cartogram(rootDOM, data){
 		.text(d => d.dest_name);
 
 
-  const force_x = forceX().x(d=>d.x);//pull the x position that i defined
-	const force_y = forceY().y(d=>d.y);
+  const force_x = forceX().x(d=>w/2);//pull the x position that i defined
+	const force_y = forceY().y(d=>h/2);
 	const force_collide=forceCollide(d=>scaleSize(d.value));
 
 	//combine the forces into a forceSimulation
@@ -105,4 +105,10 @@ export default function Cartogram(rootDOM, data){
 		.attr('transform',d=>`translate(${d.x},${d.y})`)
 	})
 	.restart()
+	// 
+	// exportFunction.year=function(_){
+	// 	year=_;
+	// 	return this;
+	// }
+	// return exportFunction;
 }
