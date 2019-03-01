@@ -56,7 +56,7 @@ globalDispatch.call(
 			'change:country',
 			null,
 			"840",
-			"United States"
+			"World"
 		));
 countryCodePromise.then(countryCode => renderMenu(countryCode));
 

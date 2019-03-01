@@ -11,6 +11,7 @@ forceCollide
 export default function Cartogram(){
 let year=2017;
 let maxSize;
+//don't know why w and h need to be configured
 
 function exportFunction(rootDOM,data){
 
@@ -21,8 +22,8 @@ function exportFunction(rootDOM,data){
 		let w=W - margin.l - margin.r;
 		let h = H - margin.t - margin.b;
 		// const YEAR = 2017;
-		const scaleSize = scaleSqrt().range([3,100]);
 
+		const scaleSize = scaleSqrt().range([3,100]);
 		//Discover max value to set the size of circles
 	  scaleSize.domain([0, maxSize]);
 
@@ -30,14 +31,14 @@ function exportFunction(rootDOM,data){
 		//Use geographic representation for cartogram
 		const projection = geoMercator()
 			.translate([w/2, h/2]);
-			
-			//Data restructuring
-			let dataMap = nest()
-				.key(d => d.year)
-				.entries(data)
-				.map(d => [+d.key, d.values]);
-			dataMap = new Map(dataMap);
-			let dataByYear = dataMap.get(year);
+
+		//Data restructuring
+		let dataMap = nest()
+			.key(d => d.year)
+			.entries(data)
+			.map(d => [+d.key, d.values]);
+		dataMap = new Map(dataMap);
+		let dataByYear = dataMap.get(year);
 		//Transform data again, this time giving each data point an xy coordinate
 		dataByYear = dataByYear.map(d => {
 			const xy = d.dest_lngLat?projection(d.dest_lngLat):[w/2,h/2];//what's the meaning here
