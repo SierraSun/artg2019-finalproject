@@ -109,7 +109,7 @@ function renderComposition(data,year){
 }
 
 function renderCartogram(data,year){
-
+	console.log(data)
 	//Data restructuring
 	let dataMap = nest()
 		.key(d => d.year)
