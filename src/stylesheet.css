@@ -1,68 +1,121 @@
 .intro-header {
-    height: 100%;
-    padding-top: 80px;
-    padding-bottom: ;
-    background: ;
-    background-size: cover;
-    text-align: left;
+  height: 100%;
+  padding-top: 80px;
+  padding-bottom: ;
+  background: ;
+  background-size: cover;
+  text-align: left;
 }
-
 
 .bubbleChart {
   height: 600px;
   background-color: #d3d3d35c;
 }
-.composition-container{
+
+.composition-container {
   margin-top: 50px;
   height: 800px;
   background-color: #d3d3d35c;
 }
-.chart-container{
+
+.chart-container {
   margin-top: 50px;
   height: 300px;
   background-color: #d3d3d35c;
 }
-.container {
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 150px;
-  padding-right: 150px;
+
+.container-head {
+  margin-right: 0;
+  margin-left: 0;
+  padding-left: 100px;
+  padding-right:100px;
 }
+
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 2rem;
   font-weight: 300;
-  color:#3a3a3ae3;
+  color: #3a3a3ae3;
   font-family: 'Karla';
 }
-h1 { font-size: 12.0rem; line-height: 1.2;  letter-spacing: -.1rem;}
-h2 { font-size: 3.0rem; line-height: 1.25; letter-spacing: -.1rem;font-family:'Archivo';font-weight: bold;}
-h3 {font-size: 2.0rem; letter-spacing: 0rem; text-align: left;}
-h4 { font-size: 1.9rem; line-height: 1.35; letter-spacing: -.08rem; color: grey;}
-h5 { font-size: 1.3rem; line-height: 1.5;  letter-spacing: -.05rem; }
-h6 { font-size: 1em; line-height: 1.5;  letter-spacing:0rem ;}
 
-h5.EastBoston_footer {
-    font-family: 'Karla';
-    font-size: 1rem;
-    text-transform: none;
-    text-align: center;
-    letter-spacing: 0;
-    border-top: 1px solid #666;
-    padding: 20px;
-    margin-top: 50px;
+h1 {
+  font-size: 12.0rem;
+  line-height: 1.2;
+  letter-spacing: -.1rem;
+}
+
+h2 {
+  font-size: 3.0rem;
+  line-height: 1.25;
+  letter-spacing: -.1rem;
+  font-family: 'Archivo';
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 2.0rem;
+  letter-spacing: 0rem;
+  text-align: left;
+}
+
+h4 {
+  font-size: 1.9rem;
+  line-height: 1.35;
+  letter-spacing: -.08rem;
+  color: grey;
+}
+
+h5 {
+  font-size: 1.3rem;
+  line-height: 1.5;
+  letter-spacing: -.05rem;
+}
+
+h6 {
+  font-size: 1em;
+  line-height: 1.5;
+  letter-spacing: 0rem;
+}
+
+h5.footer {
+  font-family: 'Karla';
+  font-size: 1rem;
+  text-transform: none;
+  text-align: center;
+  letter-spacing: 0;
+  border-top: 1px solid #666;
+  padding: 20px;
+  margin-top: 50px;
 }
 
 @media (min-width: 768px) {
+  .container-head {
+    width: 100%;
+  }
+
   .container {
-    width: 500px;
+    width: 100%;
+    display: flex;
+  }
+
+  .item1 {
+    flex: 2.5;
+    padding-right: 30px;
+    padding-left: 20px;
+  }
+
+  .item2 {
+    flex: 4;
   }
 }
+
 @media (min-width: 992px) {
   .container {
     width: 700px;
   }
 }
+
 @media (min-width: 1200px) {
   .container {
     width: 800px;
