@@ -91,7 +91,7 @@ h5.footer {
 
 @media (min-width: 768px) {
   .container-head {
-    width: 100%;
+    width: 768px;
   }
 
   .container {
