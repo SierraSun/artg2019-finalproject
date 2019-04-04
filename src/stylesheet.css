@@ -1,7 +1,7 @@
 .intro-header {
   height: 100%;
   padding-top: 80px;
-  padding-bottom: ;
+  padding-bottom:80px ;
   background: ;
   background-size: cover;
   text-align: left;
@@ -95,11 +95,10 @@ h5.footer {
   }
 
   .container {
-    width: 100%;
-    display: flex;
+    width: 768px;
   }
 
-  .item1 {
+  /* .item1 {
     flex: 2.5;
     padding-right: 30px;
     padding-left: 20px;
@@ -107,7 +106,7 @@ h5.footer {
 
   .item2 {
     flex: 4;
-  }
+  } */
 }
 
 @media (min-width: 992px) {

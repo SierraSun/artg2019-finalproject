@@ -7,8 +7,8 @@ const controller = new ScrollMagic.Controller();
 //Define scenes
 //Scene 1 is triggered 100px after start, and last for 300px
 const scene1 = new ScrollMagic.Scene({
-		offset:100,
-		duration:300
+		offset:0,
+		duration:230
 	})
 	.setPin('#section-1') //pin this element for the duration of the scene
 	.addTo(controller);
@@ -18,4 +18,5 @@ const scene2 = new ScrollMagic.Scene({
 		triggerElement: '#section-2',
 		duration: d3.select('#section-2').node().clientHeight
 	})
+	.setPin('#section-2')
 	.addTo(controller);
