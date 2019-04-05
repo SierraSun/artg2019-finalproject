@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const artistsFreqPromise = d3.csv('./data/Topartist_freq.csv', parseArtist)
+const artistsFreqPromise = d3.csv('./data/artists_freq.csv', parseArtist)
 
 const W = parseFloat(d3.select('.chart-container').style('width')) * .9;
 const H = parseFloat(d3.select('.chart-container').style('height'));
@@ -19,7 +19,7 @@ artistsFreqPromise
   .then(artfreq => {
     // console.log(artfreq)
 
-    const topArtist = artfreq.sort(function(a,b){return d3.descending(a.freq,b.freq)}).slice(0, 20)
+    const topArtist = artfreq.sort(d=>d.freq).slice(0, 50)
     console.log(topArtist)
 
     const scaleX = d3.scaleBand().domain(topArtist.map(d => d.artist)).padding(0.2).range([0, innerWidth])
@@ -61,7 +61,7 @@ artistsFreqPromise
       .attr('transform', 'rotate(40)')
       .style('text-anchor', 'start')
       .style('font-family', 'Karla')
-      .style('font-size', '1.5em')
+      .style('font-size', '1em')
 
     plot.append('g')
       .attr('class', 'axis axis-y')

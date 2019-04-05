@@ -17,7 +17,6 @@ const innerHeight = H - margin.t - margin.b;
 artistsSpanPromise
   .then(artspan=> {
      console.log(artspan)
-     const artName = ['artspan.artist']
 
 
 
