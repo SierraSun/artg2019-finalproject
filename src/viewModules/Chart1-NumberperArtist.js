@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const artistsFreqPromise = d3.csv('./data/artists_freq.csv', parseArtist)
+const artistsFreqPromise = d3.csv('./data/Topartist_freq.csv', parseArtist)
 
 const W = parseFloat(d3.select('.chart-container').style('width')) * .9;
 const H = parseFloat(d3.select('.chart-container').style('height'));
@@ -17,9 +17,9 @@ const innerHeight = H - margin.t - margin.b;
 
 artistsFreqPromise
   .then(artfreq => {
-    console.log(artfreq)
+    // console.log(artfreq)
 
-    const topArtist = artfreq.sort(d => d.freq).slice(0, 20)
+    const topArtist = artfreq.sort(function(a,b){return d3.descending(a.freq,b.freq)}).slice(0, 20)
     console.log(topArtist)
 
     const scaleX = d3.scaleBand().domain(topArtist.map(d => d.artist)).padding(0.2).range([0, innerWidth])
@@ -29,6 +29,8 @@ artistsFreqPromise
 
     const axisX = d3.axisBottom()
       .scale(scaleX)
+      .tickSize(0)
+
 
     const axisY = d3.axisLeft()
       .scale(scaleY)
@@ -63,7 +65,9 @@ artistsFreqPromise
 
     plot.append('g')
       .attr('class', 'axis axis-y')
-      .call(axisY);
+      .call(axisY)
+      .style('font-family', 'Karla')
+      .style('font-size', '0.8em')
 
 
     const bar = plot.selectAll('.bar')
@@ -88,9 +92,8 @@ artistsFreqPromise
         div.transition()
           .duration(100)
           .style("opacity", 1)
-          .style("background-color", 'white')
-          .style("height", "320px")
-          .style("line-height","60%")
+          .style("height", "20px")
+          .style('width','20px')
 
         //make sure the positon of tooltip
         const posx = parseFloat(d3.select(this).attr('x'))
@@ -101,7 +104,7 @@ artistsFreqPromise
         console.log(posy)
         console.groupEnd()
 
-        div.html("<h5>" + d.artist + "</h5>" + "<h3>" + d.freq + "</h3>")
+        div.html("<h1>" + d.artist + "</h1>" +"<h2>" + d.freq + "</h2>")
           .style('left', posx + 120 + "px")
           .style('top', posy - 600 + "px")
 
@@ -109,7 +112,6 @@ artistsFreqPromise
           d3.select(this).transition()
             .duration(200)
             .style('fill-opacity', 0.3)
-
         }
       })
       .on('mouseout', function(d) {
@@ -117,9 +119,10 @@ artistsFreqPromise
           .duration(100)
           .style("opacity", 0);
 
-        d3.select(this).transition()
-          .duration(200)
-          .style('fill-opacity', 1)
+          d3.select(this).transition()
+            .duration(200)
+            .style('fill-opacity', 1)
+
       })
 
 
@@ -131,15 +134,7 @@ function barChart(data, rootDOM) {
 
   console.log(data)
 
-
-
 }
-
-
-
-
-
-
 
 
 

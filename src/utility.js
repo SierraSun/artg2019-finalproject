@@ -18,7 +18,17 @@ function parseArtist(d){
 	}
 }
 
+function parseSpan(d){
+	return {
+		artist: d.Artist,
+    yearstart:d.Yearstart,
+		yearend:d.Yearend,
+		careerspan:d.Careerspan
+	}
+}
+
 export{
   parseMusicData,
-  parseArtist
+  parseArtist,
+	parseSpan
 }

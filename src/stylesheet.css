@@ -19,9 +19,30 @@
   background-color: #d3d3d35c;
 }
 .tooltip{
-  display: inline;
+  display: block;
   position: relative;
+  font-family: 'Archivo';
+
 }
+.tooltip h1{
+  width:150px;
+  font-family: "Archivo";
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  margin-top:-30px;
+  margin-left:0px;
+  color: #5d001e;
+}
+.tooltip h2{
+  font-family: "Archivo";
+  font-weight: bold;
+  color: #5d001e;
+  font-size: 50px;
+  margin-top:-30px;
+  text-align: right;
+}
+
 .svg{
   position: fixed;
 }
