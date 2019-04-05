@@ -19,7 +19,7 @@ artistsFreqPromise
   .then(artfreq => {
     // console.log(artfreq)
 
-    const topArtist = artfreq.sort(d=>d.freq).slice(0, 50)
+    const topArtist = artfreq.sort(d => d.freq).slice(0, 50)
     console.log(topArtist)
 
     const scaleX = d3.scaleBand().domain(topArtist.map(d => d.artist)).padding(0.2).range([0, innerWidth])
@@ -89,11 +89,12 @@ artistsFreqPromise
       .style('cursor', 'pointer')
       .on('mouseover', function(d) {
 
+        //add infobox transition and format
         div.transition()
           .duration(100)
           .style("opacity", 1)
           .style("height", "20px")
-          .style('width','20px')
+          .style('width', '20px')
 
         //make sure the positon of tooltip
         const posx = parseFloat(d3.select(this).attr('x'))
@@ -104,25 +105,27 @@ artistsFreqPromise
         console.log(posy)
         console.groupEnd()
 
-        div.html("<h1>" + d.artist + "</h1>" +"<h2>" + d.freq + "</h2>")
+        //add infobox
+        div.html("<h1>" + d.artist + "</h1>" + "<h2>" + d.freq + "</h2>")
           .style('left', posx + 120 + "px")
           .style('top', posy - 600 + "px")
 
+        //select specific bar
         if (d3.select(this).style('fill-opacity') != 0) {
           d3.select(this).transition()
             .duration(200)
             .style('fill-opacity', 0.3)
         }
       })
+      //remove infobox
       .on('mouseout', function(d) {
         div.transition()
           .duration(100)
           .style("opacity", 0);
 
-          d3.select(this).transition()
-            .duration(200)
-            .style('fill-opacity', 1)
-
+        d3.select(this).transition()
+          .duration(200)
+          .style('fill-opacity', 1)
       })
 
 
