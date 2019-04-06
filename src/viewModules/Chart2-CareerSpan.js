@@ -1,46 +1,47 @@
 import * as d3 from 'd3';
 
-const artistsSpanPromise = d3.csv('./data/careerspan_artist.csv', parseSpan)
 
-const W = parseFloat(d3.select('.chart-container').style('width')) * .9;
-const H = parseFloat(d3.select('.chart-container').style('height'));
+function GanttChart(data, rootDOM) {
 
-const margin = {
-  t: 32,
-  r: 32,
-  b: 130,
-  l: 130
-};
-const innerWidth = W - margin.l - margin.r;
-const innerHeight = H - margin.t - margin.b;
+    const W = parseFloat(d3.select('.chart-container').style('width'));
+    const H = parseFloat(d3.select('.chart-container').style('height'));
 
-artistsSpanPromise
-  .then(artspan => {
-    console.log(artspan)
-    //find the max date
-    artspan.sort(function(a, b) {
+    const margin = {
+      t: 32,
+      r: 32,
+      b: 130,
+      l: 130
+    };
+    const innerWidth = W - margin.l - margin.r;
+    const innerHeight = H - margin.t - margin.b;
+
+    data.sort(function(a, b) {
       return a.yearend - b.yearend
     })
-    const maxDate = artspan[artspan.length - 1].yearend;
+    const maxDate = data[data.length - 1].yearend;
 
     console.log(maxDate)
     //find the min date
-    artspan.sort(function(a, b) {
+    data.sort(function(a, b) {
       return a.yearstart - b.yearstart
     })
-    const minDate = artspan[0].yearstart;
+    const minDate = data[0].yearstart;
 
     console.log(minDate)
 
     const x = d3.scaleLinear().range([0, innerWidth]).domain([minDate, maxDate])
-    const y = d3.scaleBand().rangeRound([0, innerHeight]).padding(.3).domain(artspan.map(d => d.artist))
+    const y = d3.scaleBand().rangeRound([0, innerHeight]).padding(.3).domain(data.map(d => d.artist))
 
     const axisX = d3.axisBottom(x)
 
+    const axisY = d3.axisLeft()
+      .scale(y)
+
     const svg = d3.select('#section-2')
       .append('svg')
-      .attr('width', W)
-      .attr('height', H);
+      .attr('width', innerWidth - 30)
+      .attr('height', H)
+      .style('margin-left', '80px')
 
     const plot = svg.append('g')
       .attr('class', 'plot')
@@ -65,25 +66,10 @@ artistsSpanPromise
       .style('font-family', 'Karla')
       .style('font-size', '0.8em')
 
+    
 
 
 
-
-
-  })
-
-
-
-
-
-
-
-
-function parseSpan(d) {
-  return {
-    artist: d.Artist,
-    yearstart: d.Yearstart,
-    yearend: d.Yearend,
-    careerspan: d.Careerspan
-  }
 }
+
+export default GanttChart
