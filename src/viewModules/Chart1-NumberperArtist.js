@@ -20,7 +20,7 @@ function BarChart(data, rootDOM) {
 
   const scaleX = d3.scaleBand().domain(data.map(d => d.artist)).padding(0.2).range([0, innerWidth])
   const scaleY = d3.scaleLinear().domain([0, d3.max(data, d => d.freq)]).range([innerHeight, 0]);
-  const color = d3.scaleSequential().domain([1, 60]).interpolator(d3.interpolateRgb('#e3afbc', '#9a1750'));
+  const color = d3.scaleSequential().domain([30, 10]).interpolator(d3.interpolateRgb('#5d001e', '#e3afbc'));
 
 
   const axisX = d3.axisBottom()
@@ -104,7 +104,7 @@ function BarChart(data, rootDOM) {
       //add infobox
       div.html("<h1>" + d.artist + "</h1>" + "<h2>" + d.freq + "</h2>")
         .style('left', posx + 120 + "px")
-        .style('top', posy - 600 + "px")
+        .style('top', posy -620 + "px")
 
       //select specific bar
       if (d3.select(this).style('fill-opacity') != 0) {

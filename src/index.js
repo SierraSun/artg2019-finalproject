@@ -33,5 +33,4 @@ Promise.all([
         GanttChart(artspan,this)
       })
 
-
   })
