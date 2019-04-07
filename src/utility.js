@@ -1,15 +1,6 @@
 import {nest, sum} from 'd3';
 
 //Utility functions for parsing
-function parseMusicData(d){
-	return {
-		artist: d.Artist,
-    rank:d.Rank,
-    song:d.Song,
-    source:d.Source,
-    year:d.Year
-	}
-}
 
 function parseArtist(d){
 	return {
@@ -27,8 +18,20 @@ function parseSpan(d){
 	}
 }
 
+function parseWords(d){
+	return {
+		artist: d.Artist,
+		decade:d.Decade,
+    rank:d.Rank,
+		song:d.Song,
+		uniwc:d.UniqueWordCount,
+		wc:d.WordCount,
+		year:d.Year
+	}
+}
+
 export{
-  parseMusicData,
   parseArtist,
-	parseSpan
+	parseSpan,
+	parseWords
 }

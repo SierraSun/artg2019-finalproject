@@ -38,7 +38,7 @@ function BarChart(data, rootDOM) {
     .attr('height', H);
   // Define the tooltip for hover-over info windows
   const div = d3.select(rootDOM).append("div")
-    .attr("class", "tooltip")
+    .attr("class", "tooltip2")
     .style("opacity", 1);
 
 
@@ -64,6 +64,16 @@ function BarChart(data, rootDOM) {
     .call(axisY)
     .style('font-family', 'Karla')
     .style('font-size', '0.8em')
+
+  plot.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -50)
+    .attr("x", 0 - (H / 3))
+    .attr("dy", ".75em")
+    .style("text-anchor", "middle")
+    .style("font-size", "13px")
+    .style('font-family','Karla')
+    .text("Numbers of HIT Song per Artist");
 
 
   const bar = plot.selectAll('.bar')

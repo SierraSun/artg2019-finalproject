@@ -1,4 +1,4 @@
-"","Rank","Song","Artist","Year","Source","Decade","Word.Count","Unique.Word.Count","Inverse.Density"
+"","Rank","Song","Artist","Year","Source","Decade","WordCount","UniqueWordCount","Inverse.Density"
 "1",1,"wooly bully","sam the sham and the pharaohs",1965,3,"1960",128,65,1.9692
 "2",2,"i cant help myself sugar pie honey bunch","four tops",1965,1,"1960",205,95,2.1579
 "4",4,"you were on my mind","we five",1965,1,"1960",153,45,3.4
