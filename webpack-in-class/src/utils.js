@@ -51,6 +51,7 @@ function parseMigrationData(d){
 	}
 
 	return migrationFlows;
+
 }
 
 function groupBySubregionByYear(data){
