@@ -30,6 +30,7 @@ function parseWords(d){
 	}
 }
 
+
 export{
   parseArtist,
 	parseSpan,

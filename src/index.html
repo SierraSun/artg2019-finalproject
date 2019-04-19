@@ -9,6 +9,8 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link href="//fonts.googleapis.com/css?family=Karla" rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=Archivo" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="//cdn.wordart.com/wordart.min.js" async defer></script>
 </head>
 
 <body>
@@ -19,61 +21,75 @@
       <h5>
         Billboard has published a Year-End Hot 100 every December since 1958.
         The chart measures the performance of singles in the U.S. throughout the year.
-        Here, I'll use 50 years of those charts to find out the things behind Hit songs .
-        <br> <br>
-        "Hit songs have always been repetitive," Bonnie Hayes songwriter for Cher,
-        Bette Midler, David Crosby and current chair of the songwriting department at Berklee College of Music.
-        "If anything, hip-hop songs seem less repetitive to me.
-        If you listen to the Kendrick Lamar record it seems to have less repetition and more varied content than a Beatles song from the '60s.
-        That's gonna make a lot of people mad, but look at the data and you'll find it true."
+        Here, I'll use 50 years of those charts to find out the things behind Hit songs.
       </h5>
       <h6>By Sierra Sun</h6>
     </div>
   </div>
-  <!-- Browsing and analyzing view -->
-  <div class='container-head'>
-    <!-- section1 -->
-    <h3><b> Superstars Are Not A Deciding Factor For HIT</b></h3>
-    <h5> Before data analysis, I thought that a song's success depended in large part on the popularity of singers.
-      If a singer is famous enough, then his songs are likely to be a hit. However, after I looking into the data,
-      I found 1154 out of 1989 (58%) singers who made one appearance on the Hot 100 chart do not make another appearance the following year.
-      The results came as a surprise to me, suggesting that the superstars is not an absolute cause of a song's popularity.</h5>
+
+  <!-- Navigation bar -->
+  <div class='navigationbar'>
+    <ul>
+      <li><a href="#part1">01</a></li>
+      <li><a href="#part2">02</a></li>
+      <li><a href="#part3">03</a></li>
+      <li><a href="#part4">04</a></li>
+    </ul>
   </div>
-  <section id='section-1' class="chart-container-1"></section>
+
+  <!-- Analyzing Content -->
+  <div id="part1">
+    <div class='container'>
+      <!-- section1 -->
+      <h3><b> Superstars Are Not A Deciding Factor For HIT</b></h3>
+      <h5> Before data analysis, I thought that a song's success depended in large part on the popularity of singers.
+        If a singer is famous enough, then his songs are likely to be a hit. However, after I looking into the data,
+        I found 1154 out of 1989 (58%) singers who made one appearance on the Hot 100 chart do not make another appearance the following year.
+        The results came as a surprise to me, suggesting that the superstars is not an absolute cause of a song's popularity.</h5>
+    </div>
+
+    <section id='section-1' class="chart-container-1"></section>
+  </div>
   <!-- section2 -->
-  <div class='container-head'>
-    <br> <br> <br> <br>
-    <h3><b> Flash In The Pan VS. Marathon</b></h3>
-    <h5> One of the interesting things about the data is that most of the singers on the list are ephemeral and don't live up to their glory days.
-      To that end, I combed through the top 20 artists who regularly appear on the charts.</h5>
-    <h5>As you can see, the longest lıved singer was Michael Jackson, who lasted 30 years, and Chris Brown, who lasted six years.</h5>
+  <div id="part2">
+    <div class='container'>
+      <br> <br> <br> <br>
+      <h3><b> Flash In The Pan VS. Marathon</b></h3>
+      <h5> One of the interesting things about the data is that most of the singers on the list are ephemeral and don't live up to their glory days.
+        To that end, I combed through the top 20 artists who regularly appear on the charts.</h5>
+      <h5>As you can see, the longest singer was Michael Jackson, who lasted for 30 years, while Katy Perry lasted for only 6 years.</h5>
+    </div>
+
+    <section id='section-2' class="chart-container-2"></section>
   </div>
-
-  <section id='section-2' class="chart-container-2"></section>
-
   <!-- section3 -->
-  <div class='container-head'>
-    <br> <br> <br> <br>
-    <h3><b> Longer Songs And Longer Lyrics</b></h3>
-    <h5> According to the data analysis, the average word count of songs
-      (both unique and total) increased over time. For each additional year,
-      the total number of words increased by an average of 1.87 per cent and the
-      number of unique words increased by 1.36 per cent.</h5>
-  </div>
+  <div id="part3">
+    <div class='container'>
+      <br> <br> <br> <br>
+      <h3><b> Longer Songs And Longer Lyrics</b></h3>
+      <h5> According to the data analysis, the average word count of songs
+        (both unique and total) increased over time. For each additional year,
+        the total number of words increased by an average of 1.87 per cent and the
+        number of unique words increased by 1.36 per cent.</h5>
+    </div>
+    <!-- Add 2 buttons -->
+    <button id='button1' class="btn btn-secondary" >TOTAL</button>
+    <button id='button2' class="btn btn-secondary">UNIQUE</button>
 
-  <section id='section-3' class="chart-container-3"></section>
+    <section id='section-3' class="chart-container-3"></section>
+  </div>
 
   <!-- section4 -->
-  <div class='container-head'>
-    <br> <br> <br> <br>
-    <h3><b> "Love" Is the Eternal Theme</b></h3>
-    <h5> Through doing word frequency statistics of the Charted Songs' lyrics through 50 years,
-      I found that "love" is the highest frequency of Song Lyrics, and words "don't'' , "know" and "like" are also at the top.</h5>
+  <div id="part4">
+    <div class='container'>
+      <br> <br> <br> <br>
+      <h3><b> "Love" Is the Eternal Theme</b></h3>
+      <h5> Through doing word frequency statistics of the Charted Songs' lyrics through 50 years,
+        I found that "love" is the highest frequency of Song Lyrics, and words "don't'' , "know" and "like" are also at the top.</h5>
+    </div>
+
+    <section id='section-4' class='chart-container' style="text-align:center;"></section>
   </div>
-
-  <section id='section-4' class="chart-container">
-
-  </section>
 
   <!-- footer -->
   <h5 class="footer"> ARTG 6900 Viztech2 Information Design and Visualization program at Northeastern University. © 2019</h5>

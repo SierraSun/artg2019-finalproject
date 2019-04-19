@@ -6,7 +6,7 @@ function BarChart(data, rootDOM) {
 
   // console.log(data)
 
-  const W = parseFloat(d3.select('.chart-container').style('width')) * .9;
+  const W = parseFloat(d3.select('.chart-container').style('width')) ;
   const H = parseFloat(d3.select('.chart-container').style('height'));
 
   const margin = {
@@ -35,7 +35,8 @@ function BarChart(data, rootDOM) {
   const svg = d3.select(rootDOM)
     .append('svg')
     .attr('width', W)
-    .attr('height', H);
+    .attr('height', H)
+    .style('margin-left',-30)
   // Define the tooltip for hover-over info windows
   const div = d3.select(rootDOM).append("div")
     .attr("class", "tooltip2")
@@ -113,7 +114,7 @@ function BarChart(data, rootDOM) {
 
       //add infobox
       div.html("<h1>" + d.artist + "</h1>" + "<h2>" + d.freq + "</h2>")
-        .style('left', posx + 120 + "px")
+        .style('left', posx +80 + "px")
         .style('top', posy -620 + "px")
 
       //select specific bar

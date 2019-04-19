@@ -1,12 +1,13 @@
 import * as d3 from 'd3';
 
+// const artistsFreqPromise = d3.csv('./data/artists_freq.csv', parseArtist)
 
-function GanttChart(data, rootDOM) {
+function Chart(data, rootDOM) {
 
   // console.log(data)
 
-  const W = parseFloat(d3.select('.chart-container-2').style('width')) * .9;
-  const H = parseFloat(d3.select('.chart-container-2').style('height'));
+  const W = parseFloat(d3.select('.chart-container').style('width')) ;
+  const H = parseFloat(d3.select('.chart-container').style('height'));
 
   const margin = {
     t: 32,
@@ -16,40 +17,31 @@ function GanttChart(data, rootDOM) {
   };
   const innerWidth = W - margin.l - margin.r;
   const innerHeight = H - margin.t - margin.b;
-  const color = d3.scaleSequential().domain([30, 3]).interpolator(d3.interpolateRgb('#5d001e', '#e3afbc'));
 
-  data.sort(function(a, b) {
-    return a.yearend - b.yearend
-  })
-  const maxDate = data[data.length - 1].yearend;
+  const scaleX = d3.scaleBand().domain(data.map(d => d.keyword)).padding(0.1).range([0, innerWidth])
+  const scaleY = d3.scaleLinear().domain([0, 15300]).range([innerHeight, 0]);
+  const color = d3.scaleSequential().domain([d3.max(data, d => d.count), 10]).interpolator(d3.interpolateRgb('#5d001e', '#e3afbc'));
 
-  // console.log(maxDate)
-  //find the min date
-  data.sort(function(a, b) {
-    return a.yearstart - b.yearstart
-  })
-  const minDate = data[0].yearstart;
 
-  // console.log(minDate)
+  const axisX = d3.axisBottom()
+    .scale(scaleX)
+    .tickSize(0)
 
-  const x = d3.scaleLinear().range([0, innerWidth]).domain([minDate, maxDate])
-  const y = d3.scaleBand().rangeRound([0, innerHeight]).padding(.3).domain(data.map(d => d.artist))
-
-  const axisX = d3.axisBottom(x)
 
   const axisY = d3.axisLeft()
-    .scale(y)
+    .scale(scaleY)
+
 
   const svg = d3.select(rootDOM)
     .append('svg')
     .attr('width', W)
     .attr('height', H)
-    .style('margin-left', '30px')
-
+    .style('margin-left',-30)
   // Define the tooltip for hover-over info windows
   const div = d3.select(rootDOM).append("div")
     .attr("class", "tooltip2")
     .style("opacity", 1);
+
 
   const plot = svg.append('g')
     .attr('class', 'plot')
@@ -60,10 +52,10 @@ function GanttChart(data, rootDOM) {
     .attr('transform', `translate(0, ${innerHeight})`)
     .call(axisX)
     .selectAll('text')
-    .attr('y', 10)
-    .attr('x', -10)
+    .attr('y', 0)
+    .attr('x', 0)
     .attr('dy', '1em')
-    .attr('transform', 'rotate(0)')
+    .attr('transform', 'rotate(40)')
     .style('text-anchor', 'start')
     .style('font-family', 'Karla')
     .style('font-size', '1em')
@@ -74,17 +66,32 @@ function GanttChart(data, rootDOM) {
     .style('font-family', 'Karla')
     .style('font-size', '0.8em')
 
-  plot.selectAll('.bar')
+  plot.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -70)
+    .attr("x", 0 - (H / 3))
+    .attr("dy", ".75em")
+    .style("text-anchor", "middle")
+    .style("font-size", "13px")
+    .style('font-family','Karla')
+    .text("Top words over years");
+
+
+  const bar = plot.selectAll('.bar')
     .data(data)
-    .enter()
-    .append('rect')
-    .attr('x', d => x(d.yearstart))
-    .attr('y', d => y(d.artist))
-    .attr('width', function(d) {
-      return (x(d.yearend) - x(d.yearstart))
-    })
-    .attr('height', 15)
-    .style('fill', d => color(d.careerspan))
+
+  bar.exit().remove();
+
+  const barEnter = bar.enter()
+    .append('rect').attr('class', 'bar')
+
+
+  bar.merge(barEnter)
+    .attr('x', d => scaleX(d.keyword))
+    .attr('y', d => scaleY(d.count))
+    .attr('width', d => scaleX.bandwidth())
+    .attr('height', d => innerHeight - scaleY(d.count))
+    .style('fill', d => color(d.count))
     .style('fill-opacity', 1)
     .style('cursor', 'pointer')
     .on('mouseover', function(d) {
@@ -93,23 +100,28 @@ function GanttChart(data, rootDOM) {
       div.transition()
         .duration(100)
         .style("opacity", 1)
-        .style("height", "80px")
-        .style('width', '140px')
-        .style("background-color", "rgba(255,255,255,.8)")
+        .style("height", "20px")
+        .style('width', '20px')
 
       //make sure the positon of tooltip
       const posx = parseFloat(d3.select(this).attr('x'))
       const posy = parseFloat(d3.select(this).attr('y'))
+
+      console.group()
+      console.log(posx)
+      console.log(posy)
+      console.groupEnd()
+
       //add infobox
-      div.html("<h1>" + d.artist + "</h1>" + "<h3>" + d.careerspan + "</h3>" + "<h6>" + "years" + "</h6>")
-        .style('left', posx + 220 + "px")
-        .style('top', posy - 580 + "px")
+      div.html("<h1>" + d.keyword + "</h1>" + "<h2>" + d.count + "</h2>")
+        .style('left', posx +80 + "px")
+        .style('top', posy -620 + "px")
 
       //select specific bar
       if (d3.select(this).style('fill-opacity') != 0) {
         d3.select(this).transition()
           .duration(200)
-          .style('fill-opacity', .1)
+          .style('fill-opacity', 0.3)
       }
     })
     //remove infobox
@@ -125,4 +137,4 @@ function GanttChart(data, rootDOM) {
 
 }
 
-export default GanttChart
+export default Chart;
