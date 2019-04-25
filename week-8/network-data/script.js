@@ -55,18 +55,18 @@ migrationDataPromise.then(data=>{
 	nodes.merge(nodesEnter)
 			.attr('transform',d=>`translate(${d.x},${d.y})`);
 
-	const links=plot1.selectAll('.link')
-			.data(linksData);
-	const linksEnter=links.enter()
-			.append('line').attr('class','link')
-			.style('stroke-opacity',0.02)
-			.style('stroke-width','1px')
-			.style('stroke','black');
-	links.merge(linksEnter)
-			.attr('x1',d=>d.source.x)
-			.attr('y1',d=>d.source.y)
-			.attr('x2',d=>d.target.x)
-			.attr('y2',d=>d.target.y);
+	// const links=plot1.selectAll('.link')
+	// 		.data(linksData);
+	// const linksEnter=links.enter()
+	// 		.append('line').attr('class','link')
+	// 		.style('stroke-opacity',0.02)
+	// 		.style('stroke-width','1px')
+	// 		.style('stroke','black');
+	// links.merge(linksEnter)
+	// 		.attr('x1',d=>d.source.x)
+	// 		.attr('y1',d=>d.source.y)
+	// 		.attr('x2',d=>d.target.x)
+	// 		.attr('y2',d=>d.target.y);
 
 	//create force layout
 	const simulation=d3.forceSimulation();
