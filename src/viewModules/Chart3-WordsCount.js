@@ -6,6 +6,9 @@ function ScatterPlot() {
   const H = parseFloat(d3.select('.chart-container-3').style('height'));
   let dots;
   let plot;
+  let y;
+  let axisY;
+  let div;
 
   const margin = {
     t: 32,
@@ -32,8 +35,8 @@ function ScatterPlot() {
 
     const x = d3.scaleLinear().range([0, innerWidth]).domain([minDate, maxDate])
     const axisX = d3.axisBottom(x)
-    const y = d3.scaleLinear().range([innerHeight, 0]).domain([0, d3.max(data, d => +d[value]) * 1.2])
-    const axisY = d3.axisLeft().scale(y)
+    y = d3.scaleLinear().range([innerHeight, 0]).domain([0, d3.max(data, d => d.wc) * 1.2])
+    axisY = d3.axisLeft().scale(y)
 
     const color = d3.scaleSequential().interpolator(d3.interpolateRgb('#5d001e', '#e3afbc')).domain([d3.max(data, d => d.wc), d3.min(data, d => d.wc)]);
     const scaleSize = d3.scaleSqrt().range([1, 6]).domain([0, d3.max(data, d => d.wc)]);
@@ -43,7 +46,7 @@ function ScatterPlot() {
       .attr('width', W)
       .attr('height', H)
 
-    const div = d3.select(rootDOM).append("div")
+    div = d3.select(rootDOM).append("div")
       .attr("class", "tooltip")
       .style("opacity", 1);
 
@@ -68,15 +71,15 @@ function ScatterPlot() {
 
     dots.selectAll('circle')
 
-    .on('mouseover',function(d){
+      .on('mouseover', function(d) {
 
-      //add infobox transition and format
-      div.transition()
-        .duration(100)
-        .style("opacity", 1)
-        .style("height", "120px")
-        .style('width', '200px')
-        .style("background-color", "rgba(255,255,255,.8)")
+        //add infobox transition and format
+        div.transition()
+          .duration(100)
+          .style("opacity", 1)
+          .style("height", "120px")
+          .style('width', '200px')
+          .style("background-color", "rgba(255,255,255,.8)")
 
         //make sure the positon of tooltip
         const posx = parseFloat(d3.select(this).attr('cx'))
@@ -86,30 +89,29 @@ function ScatterPlot() {
         console.log(posx)
         console.log(posy)
         console.groupEnd()
+        
+        //add infobox
+        div.html("<h1>" + d.artist + "</h1>" + "<h3>" + d.wc + "</h3>" + "<h5>" + "WordsCounts" + "</h5>")
+          .style('left', posx + 150 + "px")
+          .style('top', posy - 520 + "px")
 
-      //add infobox
-      div.html("<h1>" + d.artist + "</h1>" + "<h3>" + d[value] + "</h3>" + "<h5>" + "WordsCounts" + "</h5>")
-        .style('left', posx + 150 + "px")
-        .style('top', posy - 520 + "px")
+        //select specific bar
+        if (d3.select(this).style('fill-opacity') != 0) {
+          d3.select(this).transition()
+            .duration(200)
+            .style('fill-opacity', 1)
+        }
+      })
+      //remove infobox
+      .on('mouseout', function(d) {
+        div.transition()
+          .duration(100)
+          .style("opacity", 0);
 
-      //select specific bar
-      if (d3.select(this).style('fill-opacity') != 0) {
         d3.select(this).transition()
           .duration(200)
-          .style('fill-opacity', 1)
-      }
-    })
-    //remove infobox
-    .on('mouseout', function(d) {
-      div.transition()
-        .duration(100)
-        .style("opacity", 0);
-
-      d3.select(this).transition()
-        .duration(200)
-        .style('fill-opacity', .3)
-    })
-
+          .style('fill-opacity', .3)
+      })
 
     dots.selectAll('circle')
       .attr('cx', d => x(d.year))
@@ -117,7 +119,6 @@ function ScatterPlot() {
       .attr('r', d => scaleSize(d.wc))
       .attr('cy', d => y(d.wc))
       .style('cursor', 'pointer')
-
 
     //change the format of the string
     plot.append('g')
@@ -152,8 +153,14 @@ function ScatterPlot() {
 
 
   exports.updateValue = function(data, value) {
+    const t = d3.transition()
+      .duration(750)
+      .ease(d3.easeLinear);
 
-    const y = d3.scaleLinear().range([innerHeight, 0]).domain([0, d3.max(data, d => +d[value]) * 1.2])
+    y.domain([0, d3.max(data, d => +d[value]) * 1.2])
+    plot.select('.axis-y')
+        .transition(t)
+        .call(axisY)
 
     const color = d3.scaleSequential().interpolator(d3.interpolateRgb('#5d001e', '#e3afbc'))
     const scaleSize = d3.scaleSqrt().range([1, 6]);
@@ -165,11 +172,22 @@ function ScatterPlot() {
     scaleSize.domain([0, d3.max(data, d => +d[value])]);
 
 
-    dots.select('circle')
-      .transition(10)
+    dots.select('circle').transition(t)
       .style('fill', d => color(+d[value]))
       .attr('r', d => scaleSize(+d[value]))
       .attr('cy', d => y(+d[value]))
+
+    const newHtml = []
+    data.forEach(function(h){
+      newHtml.push(
+        "<h1>" + h.artist + "</h1>" + "<h3>" + h[value] + "</h3>" + "<h5>" + "WordsCounts" + "</h5>"
+      )
+
+    })
+
+    d3.select('tooltip').html(newHtml)
+
+
 
   }
 

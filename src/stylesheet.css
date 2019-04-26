@@ -1,5 +1,5 @@
 .chart-container-1{
-  margin-top: 50px;
+  margin-top: 0px;
   height:1000px;
 }
 .chart-container-2{
@@ -10,18 +10,25 @@
 
 #button1{
   margin-left: 100px;
-  margin-top: 50px;
-  margin-bottom: -100px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 #button2{
-  margin-top: 50px;
-  margin-bottom: -100px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
-#details-popup{
-  height:50px;
+
+.layout-control{
+  margin-left: 100px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.form-group{
+  margin-left: 100px;
+  width:150px;
 }
 .chart-container-3{
-  margin-top: 100px;
+  margin-top: 10px;
   margin-bottom: -30px;
   height:550px;
 }
@@ -29,6 +36,16 @@
 .chart-container{
   margin-top: 50px;
   height:600px;
+}
+
+.smallbar .axis .domain{
+	display: none;
+}
+.smallbar .axis .tick line{
+	stroke-opacity: 0.2;
+}
+.smallbar .axis .tick text{
+	fill: #333;
 }
 
 .tooltip{
@@ -97,7 +114,7 @@
   color: #5d001e;
   font-size: 50px;
   margin-top:-30px;
-  text-align: right;
+  text-align: left;
 }
 .tooltip h1{
   width:180px;
@@ -145,6 +162,15 @@
   text-align: right;
 }
 
+.tooltip2 h5{
+  font-family: "Archivo";
+  font-weight: bold;
+  color: #5d001e;
+  font-size: 15px;
+  margin-right:10px;
+  margin-top:-60px;
+  text-align: right;
+}
 .svg{
   position: fixed;
 
@@ -248,6 +274,7 @@ h5.footer {
   margin-top: 50px;
 }
 
+
 @media (min-width: 768px) {
   .container-head {
     width: 340px;
@@ -259,6 +286,23 @@ h5.footer {
 
   .container {
     width: 768px;
+  }
+  .container-2 {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chart{
+    width:240px;
+    height:160px;
+    margin-left: 80px;
+    margin-top:80px;
+    float:left;
+  }
+  .chart-container-5{
+    margin-top: -70px;
+    height:1500px;
   }
 
   .intro-header {
@@ -283,6 +327,23 @@ h5.footer {
   .container {
     width: 768px;
   }
+  .container-2 {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chart{
+    width:240px;
+    height:160px;
+    margin-left: 80px;
+    margin-top:80px;
+    float:left;
+  }
+  .chart-container-5{
+    margin-top: -70px;
+    height:800px;
+  }
 
   .intro-header {
     height: 650px;
@@ -306,6 +367,23 @@ h5.footer {
   }
   .container {
     width: 768px;
+  }
+  .container-2 {
+    width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chart{
+  	width:240px;
+  	height:160px;
+    margin-left: 130px;
+    margin-top:100px;
+  	float:left;
+  }
+  .chart-container-5{
+    margin-top: -70px;
+    height:650px;
   }
 
   .intro-header {

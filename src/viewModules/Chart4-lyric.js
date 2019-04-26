@@ -74,7 +74,7 @@ function Chart(data, rootDOM) {
     .style("text-anchor", "middle")
     .style("font-size", "13px")
     .style('font-family','Karla')
-    .text("Top words over years");
+    .text("Word counts over years");
 
 
   const bar = plot.selectAll('.bar')
@@ -100,8 +100,9 @@ function Chart(data, rootDOM) {
       div.transition()
         .duration(100)
         .style("opacity", 1)
-        .style("height", "20px")
-        .style('width', '20px')
+        .style("height", "80px")
+        .style('width', '180px')
+        .style("background-color", "rgba(255,255,255,.8)")
 
       //make sure the positon of tooltip
       const posx = parseFloat(d3.select(this).attr('x'))
@@ -113,7 +114,7 @@ function Chart(data, rootDOM) {
       console.groupEnd()
 
       //add infobox
-      div.html("<h1>" + d.keyword + "</h1>" + "<h2>" + d.count + "</h2>")
+      div.html("<h1>" + d.keyword + "</h1>" + "<h2>" + d.count + "</h2>" + "<h5>" + "times" + "</h5>")
         .style('left', posx +80 + "px")
         .style('top', posy -620 + "px")
 

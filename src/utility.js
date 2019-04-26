@@ -30,9 +30,19 @@ function parseWords(d){
 	}
 }
 
+function parseYear(d){
+	return {
+		year: d.year,
+		keyword:d.keyword,
+    totalword:d.totalword,
+		rank:d.rank
+	}
+}
+
 
 export{
   parseArtist,
 	parseSpan,
-	parseWords
+	parseWords,
+	parseYear
 }
