@@ -1,6 +1,6 @@
 .chart-container-1{
   margin-top: 50px;
-  height:600px;
+  height:1000px;
 }
 .chart-container-2{
   margin-top: 70px;
@@ -17,7 +17,9 @@
   margin-top: 50px;
   margin-bottom: -100px;
 }
-
+#details-popup{
+  height:50px;
+}
 .chart-container-3{
   margin-top: 100px;
   margin-bottom: -30px;
@@ -38,6 +40,28 @@
   display: block;
   position: relative;
   font-family: 'Archivo';
+}
+.tooltip3{
+  display: block;
+  position: static;
+  font-family: 'Archivo';
+}
+.tooltip3 h1{
+  width: 150px;
+  font-family: "Archivo";
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  margin-top:-30px;
+  color: #5d001e;
+}
+.tooltip3 h2{
+  font-family: "Archivo";
+  font-weight: bold;
+  color: #5d001e;
+  font-size: 50px;
+  margin-top:-20px;
+  text-align: left;
 }
 .tooltip2 h1{
   width:180px;

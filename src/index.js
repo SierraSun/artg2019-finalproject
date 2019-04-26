@@ -10,6 +10,7 @@ import {
 
 // import script from viewModules
 import BarChart from './viewModules/Chart1-NumberperArtist';
+import ForceChart from './viewModules/Chart1-forcelayout';
 import GanttChart from './viewModules/Chart2-CareerSpan';
 import ScatterPlot from './viewModules/Chart3-WordsCount';
 import Chart from './viewModules/Chart4-lyric';
@@ -25,13 +26,22 @@ Promise.all([
   .then(([artfreq, artspan, songWord, topwords]) => {
     // console.log(artspan)
     //Create the topArtist data entries
-    const topArtist = artfreq.sort(d => d.freq).slice(0, 50)
+    const topArtist = artfreq.sort(d => d.freq).slice(0, 1989)
+
+
+    // // chart1
+    // //render BarChart
+    // d3.select('#section-1')
+    //   .each(function() {
+    //     BarChart(topArtist, this)
+    //   })
+
 
     // chart1
-    //render BarChart
+    //render ForceChart
     d3.select('#section-1')
       .each(function() {
-        BarChart(topArtist, this)
+        ForceChart(topArtist, this)
       })
 
     // chart2
@@ -46,18 +56,17 @@ Promise.all([
     const dispatch = d3.dispatch('change:value');
     const scatterplot = ScatterPlot()
 
-    d3.select('#section-3')
-      .each(function() {
-        scatterplot(
-          songWord,
-          this,
-          'wc'
-        )
-      })
+      scatterplot(
+        songWord,
+        '#section-3',
+        'wc'
+      )
 
     dispatch.on('change:value', value => {
-     console.log(value)
-    })
+      console.log(value)
+      scatterplot.updateValue(songWord,value)
+      }
+    )
 
     d3.select('#button1').on('click', function() {
       dispatch.call(
