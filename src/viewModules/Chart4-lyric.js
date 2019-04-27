@@ -6,8 +6,8 @@ function Chart(data, rootDOM) {
 
   // console.log(data)
 
-  const W = parseFloat(d3.select('.chart-container').style('width')) ;
-  const H = parseFloat(d3.select('.chart-container').style('height'));
+  const W = rootDOM.clientWidth*.9;
+  const H = rootDOM.clientHeight;
 
   const margin = {
     t: 32,

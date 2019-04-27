@@ -89,7 +89,7 @@ function ScatterPlot() {
         console.log(posx)
         console.log(posy)
         console.groupEnd()
-        
+
         //add infobox
         div.html("<h1>" + d.artist + "</h1>" + "<h3>" + d.wc + "</h3>" + "<h5>" + "WordsCounts" + "</h5>")
           .style('left', posx + 150 + "px")
