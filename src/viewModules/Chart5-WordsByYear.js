@@ -100,7 +100,7 @@ function LineChart() {
       .style("text-anchor", "middle")
       .style("font-size", "0.7em")
       .style('font-family', 'Karla')
-      .text("Word counts");
+      .text("Words Count");
 
 
     const bar = plot.selectAll('.bar')

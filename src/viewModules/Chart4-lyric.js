@@ -74,7 +74,7 @@ function Chart(data, rootDOM) {
     .style("text-anchor", "middle")
     .style("font-size", "13px")
     .style('font-family','Karla')
-    .text("Word counts over years");
+    .text("Words Count Over Years");
 
 
   const bar = plot.selectAll('.bar')
