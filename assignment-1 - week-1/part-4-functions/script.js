@@ -18,12 +18,25 @@ d3.csv('../../data/world-bank/cb704cf4-fe8f-4f1b-ae0c-2a51c26f295f_Data.csv', pa
 		//And return small array of values, sorted by year
 		function filterByCountrySeries(rows, country, series){
 			//YOUR CODE HERE
+			console.log(rows)
+			console.log(country)
+			console.log(series)
+
+			const newDate = rows.sort(function(a,b){
+				return b.year - a.year
+			})
+
+			console.log(newDate)
+
+			const value = newDate.map(d=>d.value)
+      console.log(value)
+
 		}
 
 		//Now test this function
 		console.log(filterByCountrySeries(rows, "BHR", "Population, total"));
 
-		//Can the function definition live somewhere else?
+		//Can the function definition live somewhere else? maybe yes
 	});
 
 //You don't have to do anything here, but try to understand what these functions are doing
