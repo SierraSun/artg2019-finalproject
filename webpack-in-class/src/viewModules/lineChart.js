@@ -7,7 +7,7 @@ function LineChart(){
 	let yearChangeCallback;
 
 	function exportFunction(data, rootDOM, key){
-    // console.log(data)
+    console.log(data)
 		const W = rootDOM.clientWidth;
 		const H = rootDOM.clientHeight;
 		const margin = {t:32, r:32, b:64, l:64};

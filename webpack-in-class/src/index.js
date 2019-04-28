@@ -67,6 +67,7 @@ const title = select('.country-view')
 	.html('World');
 
 function renderLineCharts(data){
+	console.log(data)
 	//Find max value in data
 	const maxValue = max( data.map(subregion => max(subregion.values, d => d.value)) ) //[]x18
 
